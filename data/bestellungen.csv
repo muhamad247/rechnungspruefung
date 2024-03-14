@@ -1,0 +1,54 @@
+po_number,supplier_id,description,quantity,unit_price,vat_rate
+PO-1001,L01,"Kopierpapier A4, 500 Blatt",9,4.50,20
+PO-1001,L01,Notizblock A5,9,1.20,20
+PO-1001,L01,"Ordner breit, blau",6,2.90,20
+PO-1002,L02,LED-Panel 60x60,3,89.00,20
+PO-1002,L02,Kabelkanal 2 m,2,7.40,20
+PO-1002,L02,Montage pro Stunde,4,68.00,20
+PO-1003,L03,Kaffeebohnen 1 kg,18,24.90,10
+PO-1004,L04,Zimmerpflanze groß,9,79.00,13
+PO-1004,L04,Pflanzgefäß,16,45.00,20
+PO-1004,L04,Pflanzenpflege pro Monat,20,150.00,20
+PO-1005,L05,Lizenz Buchhaltungssoftware,24,1850.00,20
+PO-1005,L05,Support pro Stunde,15,110.00,20
+PO-1006,L01,"Ordner breit, blau",8,2.90,20
+PO-1006,L01,"Kopierpapier A4, 500 Blatt",12,4.50,20
+PO-1007,L02,LED-Panel 60x60,14,89.00,20
+PO-1008,L03,Milch 1 l,13,1.49,10
+PO-1009,L05,Schulung pro Tag,19,980.00,20
+PO-1009,L05,Lizenz Buchhaltungssoftware,5,1850.00,20
+PO-1009,L05,Support pro Stunde,14,110.00,20
+PO-1010,L04,Pflanzgefäß,11,45.00,20
+PO-1012,L01,"Ordner breit, blau",3,2.90,20
+PO-1012,L01,"Kopierpapier A4, 500 Blatt",23,4.50,20
+PO-1012,L01,Notizblock A5,9,1.20,20
+PO-1013,L02,LED-Panel 60x60,5,89.00,20
+PO-1013,L02,Kabelkanal 2 m,14,7.40,20
+PO-1014,L04,Pflanzenpflege pro Monat,7,150.00,20
+PO-1014,L04,Pflanzgefäß,13,45.00,20
+PO-1015,L03,Kaffeebohnen 1 kg,24,24.90,10
+PO-1015,L03,Milch 1 l,23,1.49,10
+PO-1016,L05,Lizenz Buchhaltungssoftware,8,1850.00,20
+PO-1016,L05,Schulung pro Tag,8,980.00,20
+PO-1016,L05,Support pro Stunde,8,110.00,20
+PO-1017,L02,LED-Panel 60x60,16,89.00,20
+PO-1017,L02,Kabelkanal 2 m,14,7.40,20
+PO-1017,L02,Montage pro Stunde,10,68.00,20
+PO-1018,L05,Support pro Stunde,3,110.00,20
+PO-1018,L05,Lizenz Buchhaltungssoftware,9,1850.00,20
+PO-1018,L05,Schulung pro Tag,3,980.00,20
+PO-1020,L05,Support pro Stunde,22,110.00,20
+PO-1020,L05,Schulung pro Tag,17,980.00,20
+PO-1020,L05,Lizenz Buchhaltungssoftware,14,1850.00,20
+PO-1021,L04,Pflanzenpflege pro Monat,6,150.00,20
+PO-1021,L04,Zimmerpflanze groß,9,79.00,13
+PO-1021,L04,Pflanzgefäß,25,45.00,20
+PO-1022,L01,Notizblock A5,20,1.20,20
+PO-1022,L01,"Ordner breit, blau",14,2.90,20
+PO-1022,L01,"Kopierpapier A4, 500 Blatt",13,4.50,20
+PO-1023,L02,LED-Panel 60x60,18,89.00,20
+PO-1024,L03,Kaffeebohnen 1 kg,5,24.90,10
+PO-1024,L03,Kaffeemaschine Wartung,6,120.00,20
+PO-1025,L04,Zimmerpflanze groß,14,79.00,13
+PO-1025,L04,Pflanzenpflege pro Monat,14,150.00,20
+PO-1025,L04,Pflanzgefäß,21,45.00,20
