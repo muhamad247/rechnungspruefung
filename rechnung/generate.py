@@ -165,3 +165,49 @@ def build(seed: int = 42) -> tuple[list[dict], list[tuple[str, Invoice]], dict[s
         invoices.append((inv.source, inv))
         expected[inv.source] = [e for e in errors if e != "KLEINBETRAG_OK"]
     return orders, invoices, expected
+
+
+def render_pdf(inv: Invoice, path: Path) -> None:
+    c = canvas.Canvas(str(path), pagesize=A4)
+    c.setTitle(f"Rechnung {inv.number or ''}".strip())
+    y = A4[1] - 60
+
+    def line(text: str, font: str = "Helvetica", size: int = 10, gap: int = 14) -> None:
+        nonlocal y
+        c.setFont(font, size)
+        c.drawString(50, y, text)
+        y -= gap
+
+    line(inv.supplier_name, "Helvetica-Bold", 14, 18)
+    line(inv.supplier_address)
+    if inv.supplier_uid:
+        line(f"UID: {inv.supplier_uid}")
+    y -= 14
+    if inv.recipient_name:
+        line("Rechnung an:")
+        line(inv.recipient_name)
+        line(inv.recipient_address)
+        if inv.recipient_uid:
+            line(f"Ihre UID: {inv.recipient_uid}")
+        y -= 14
+    line("RECHNUNG", "Helvetica-Bold", 16, 22)
+    if inv.number:
+        line(f"Rechnungsnummer: {inv.number}")
+    line(f"Rechnungsdatum: {inv.invoice_date:%d.%m.%Y}")
+    line(f"Leistungsdatum: {inv.service_date:%d.%m.%Y}")
+    if inv.po_number:
+        line(f"Bestellnummer: {inv.po_number}")
+    y -= 10
+    line(f"{'Pos':<4}{'Beschreibung':<30}{'Menge':>7}{'Einzelpreis':>13}{'USt':>6}{'Netto':>12}", "Courier-Bold", 9, 13)
+    for pos, it in enumerate(inv.items, start=1):
+        line(f"{pos:<4}{it.description:<30}{format_amount(it.quantity).replace(',00', ''):>7}"
+             f"{format_amount(it.unit_price):>13}{str(it.vat_rate) + '%':>6}{format_amount(it.net):>12}", "Courier", 9, 13)
+    y -= 8
+    line(f"Summe netto: {format_amount(inv.net_total)} EUR")
+    for rate, amount in inv.vat.items():
+        line(f"USt {rate} %: {format_amount(amount)} EUR")
+    line(f"Gesamtbetrag: {format_amount(inv.gross_total)} EUR", "Helvetica-Bold", 11, 22)
+    line(f"Zahlbar innerhalb von 14 Tagen auf IBAN {format_iban(inv.iban)}")
+    c.setFont("Helvetica-Oblique", 7)
+    c.drawString(50, 40, DISCLAIMER)
+    c.save()
