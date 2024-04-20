@@ -211,3 +211,24 @@ def render_pdf(inv: Invoice, path: Path) -> None:
     c.setFont("Helvetica-Oblique", 7)
     c.drawString(50, 40, DISCLAIMER)
     c.save()
+
+
+def write_all(out: Path = DATA, seed: int = 42) -> dict[str, list[str]]:
+    orders, invoices, expected = build(seed)
+    pdf_dir = out / "rechnungen"
+    pdf_dir.mkdir(parents=True, exist_ok=True)
+    for name, inv in invoices:
+        render_pdf(inv, pdf_dir / name)
+
+    with open(out / "lieferanten.csv", "w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        w.writerow(["supplier_id", "name", "uid", "iban"])
+        for s in SUPPLIERS:
+            w.writerow([s.id, s.name, s.uid, s.iban])
+    with open(out / "bestellungen.csv", "w", newline="", encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=["po_number", "supplier_id", "description", "quantity", "unit_price", "vat_rate"])
+        w.writeheader()
+        w.writerows(orders)
+    (out / "eigene_firma.json").write_text(json.dumps(OWN, ensure_ascii=False, indent=2), encoding="utf-8")
+    (out / "erwartet.json").write_text(json.dumps(expected, ensure_ascii=False, indent=2), encoding="utf-8")
+    return expected

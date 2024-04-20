@@ -37,3 +37,8 @@ def test_iban_checksum():
     assert not iban_valid("AT61 1904 3002 3457 3202")
     assert not iban_valid("AT61190430023457320")  # eine Stelle zu kurz
     assert iban_valid(make_at_iban("20111", "28440011100"))
+
+
+def test_amount_format_roundtrip():
+    assert parse_amount("1.234,56") == Decimal("1234.56")
+    assert format_amount(Decimal("1234567.8")) == "1.234.567,80"
