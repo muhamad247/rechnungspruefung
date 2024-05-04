@@ -68,3 +68,9 @@ def parse_text(text: str, source: str = "") -> Invoice:
     iban = _search(r"IBAN\s+([A-Z]{2}[\d ]{10,40}\d)", text)
     inv.iban = iban.replace(" ", "") if iban else None
     return inv
+
+
+def read_pdf(path: str | Path) -> Invoice:
+    path = Path(path)
+    text = "\n".join(page.extract_text() or "" for page in PdfReader(path).pages)
+    return parse_text(text, source=path.name)
