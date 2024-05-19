@@ -130,3 +130,25 @@ def check_invoice(inv: Invoice, master: MasterData) -> list[Finding]:
                         f"'{item.description}': {item.unit_price} statt bestellter {po_price} "
                         f"(+{(item.unit_price / po_price - 1) * 100:.1f} %)")
     return found
+
+
+def check_batch(invoices: list[Invoice], master: MasterData) -> list[Finding]:
+    """Prüft jede Rechnung einzeln und dazu auf Dubletten innerhalb des Stapels."""
+    findings: list[Finding] = []
+    seen: dict[tuple, str] = {}
+    for inv in sorted(invoices, key=lambda i: i.source):
+        findings += check_invoice(inv, master)
+        key = (inv.supplier_name, inv.number) if inv.number else (inv.supplier_name, inv.invoice_date, inv.gross_total)
+        if key in seen:
+            findings.append(Finding(inv.source, "DUBLETTE", "FEHLER", f"Gleiche Rechnung wie {seen[key]} (doppelte Zahlung droht)"))
+        else:
+            seen[key] = inv.source
+    return findings
+
+
+def status(codes: list[Finding]) -> str:
+    if any(f.severity == "FEHLER" for f in codes):
+        return "zurückweisen"
+    if codes:
+        return "prüfen"
+    return "freigeben"
