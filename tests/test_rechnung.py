@@ -42,3 +42,27 @@ def test_iban_checksum():
 def test_amount_format_roundtrip():
     assert parse_amount("1.234,56") == Decimal("1234.56")
     assert format_amount(Decimal("1234567.8")) == "1.234.567,80"
+
+
+def test_pdf_extraction_returns_what_was_written(tmp_path):
+    for name, original in build()[1]:
+        path = tmp_path / name
+        render_pdf(original, path)
+        assert read_pdf(path) == replace(original, source=name), name
+
+
+@pytest.mark.parametrize("name", [f"rechnung_{n:02d}.pdf" for n in range(1, 26)])
+def test_findings_match_injected_errors(generated, name):
+    _, expected, invoices, master = generated
+    findings = check_batch(invoices, master)
+    got = sorted({f.code for f in findings if f.source == name})
+    assert got == sorted(expected[name])
+
+
+def test_status_follows_severity(generated):
+    _, expected, invoices, master = generated
+    findings = check_batch(invoices, master)
+    by_file = {inv.source: [f for f in findings if f.source == inv.source] for inv in invoices}
+    assert status(by_file["rechnung_01.pdf"]) == "freigeben"
+    assert status(by_file["rechnung_20.pdf"]) == "prüfen"  # IBAN geändert: nur Warnung
+    assert status(by_file["rechnung_12.pdf"]) == "zurückweisen"  # Summe falsch
