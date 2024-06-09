@@ -1,0 +1,55 @@
+{
+  "rechnung_01.pdf": [],
+  "rechnung_02.pdf": [],
+  "rechnung_03.pdf": [],
+  "rechnung_04.pdf": [],
+  "rechnung_05.pdf": [],
+  "rechnung_06.pdf": [],
+  "rechnung_07.pdf": [],
+  "rechnung_08.pdf": [],
+  "rechnung_09.pdf": [],
+  "rechnung_10.pdf": [],
+  "rechnung_11.pdf": [],
+  "rechnung_12.pdf": [
+    "SUMME_FALSCH"
+  ],
+  "rechnung_13.pdf": [
+    "UST_FALSCH"
+  ],
+  "rechnung_14.pdf": [
+    "POSITION_FALSCH"
+  ],
+  "rechnung_15.pdf": [
+    "UID_UNGUELTIG"
+  ],
+  "rechnung_16.pdf": [
+    "UID_EMPFAENGER_FEHLT"
+  ],
+  "rechnung_17.pdf": [
+    "UID_EMPFAENGER_FALSCH"
+  ],
+  "rechnung_18.pdf": [
+    "PFLICHTANGABE_FEHLT"
+  ],
+  "rechnung_19.pdf": [
+    "DUBLETTE"
+  ],
+  "rechnung_20.pdf": [
+    "IBAN_GEAENDERT"
+  ],
+  "rechnung_21.pdf": [
+    "IBAN_UNGUELTIG"
+  ],
+  "rechnung_22.pdf": [
+    "PREIS_ABWEICHUNG"
+  ],
+  "rechnung_23.pdf": [
+    "MENGE_UEBERSCHRITTEN"
+  ],
+  "rechnung_24.pdf": [
+    "OHNE_BESTELLUNG"
+  ],
+  "rechnung_25.pdf": [
+    "STEUERSATZ_UNGUELTIG"
+  ]
+}
