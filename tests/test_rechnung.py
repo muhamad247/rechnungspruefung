@@ -66,3 +66,22 @@ def test_status_follows_severity(generated):
     assert status(by_file["rechnung_01.pdf"]) == "freigeben"
     assert status(by_file["rechnung_20.pdf"]) == "prüfen"  # IBAN geändert: nur Warnung
     assert status(by_file["rechnung_12.pdf"]) == "zurückweisen"  # Summe falsch
+
+
+def test_small_invoice_may_omit_recipient_and_number(generated):
+    _, _, invoices, master = generated
+    small = next(i for i in invoices if i.source == "rechnung_11.pdf")
+    assert small.gross_total <= 400 and small.number is None and small.recipient_name is None
+    assert check_invoice(small, master) == []
+    # dieselbe Rechnung über 400 EUR wäre unvollständig
+    bigger = replace(small, gross_total=Decimal("500.00"))
+    assert "PFLICHTANGABE_FEHLT" in {f.code for f in check_invoice(bigger, master)}
+
+
+def test_cli_and_streamlit_app_run():
+    from streamlit.testing.v1 import AppTest
+
+    app = AppTest.from_file(str(ROOT / "app.py"), default_timeout=120)
+    app.run()
+    assert not app.exception
+    assert [m.value for m in app.metric] == ["11", "4", "10"]
